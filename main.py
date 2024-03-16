@@ -292,32 +292,14 @@ max30.enable_spo2()
 detected_pulse = tk.BooleanVar()
 detected_pulse.set(False)
 
-# Initialiser le capteur MAX30100
-max30 = max30100.MAX30100()
-max30.enable_spo2()
-
-# Variable de controle pour detecter le pouls
-#detected_pulse = tk.BooleanVar()
-detected_pulse.set(False)
-
-# ajouter un frame
-#frame_calories = tk.Frame(fenetre_calories, bg = "cyan")
-# label explicatif
-#label_text_calories = tk.Label(frame_calories, text = "calories brulees")
-# label pour afficher le resultat des calories
-#label_calories = tk.Label(frame_calories, textvariable = label_calories_var)
 label_instructions = tk.Label(fenetre_calories, text = "Placez votre doigt sur le capteur.")
 pulse_label = tk.Label(fenetre_calories, text = "Pulse : ")
 label_calories_affichage = tk.Label(fenetre_calories, text="")
 pouls = update_pulse_label(max30, detected_pulse, pulse_label, last_pouls)
 bouton_valider = tk.Button(fenetre_calories, text = " OK", command = lambda pouls = pouls , MET = MET: calories_brule(pouls, MET))
 
-print(pouls)
-#bouton_ressaye = tk.Button(fenetre_calories, text = "Nouveau entrainement", command = reset_training)
-
-#label_text_calories.pack(side=tk.LEFT,padx=5)
-#label_calories.pack(side=tk.LEFT, padx=5)
-
+#print(pouls)
+# pour rendre les labels et boutons visible dans l'interface
 label_instructions.pack()
 pulse_label.pack(pady=10)
 bouton_valider.pack()
