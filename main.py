@@ -193,13 +193,13 @@ while True:
                     counter +=1
                     print(counter)
                 #Visualize angle
-                cv.putText(frame, str(elbow_left[1]),
+                #cv.putText(frame, str(elbow_left[1]),
                     tuple(np.multiply(elbow_left, [640,480]).astype(int)),
-                    cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255))
-                cv.putText(frame, str(shoulder_left[1]), tuple(np.multiply(shoulder_left, [640,480]).astype(int)), cv.FONT_HERSHEY_SIMPLEX, .5,
-                                                        (255,255,255))
-                cv.putText(frame, str(wrist_left[1]), tuple(np.multiply(wrist_left, [640,480]).astype(int)), cv.FONT_HERSHEY_SIMPLEX, 0.5,
-                       (255,255,255))
+                   # cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255))
+                #cv.putText(frame, str(shoulder_left[1]), tuple(np.multiply(shoulder_left, [640,480]).astype(int)), cv.FONT_HERSHEY_SIMPLEX, .5,
+                                                       # (255,255,255))
+                #cv.putText(frame, str(wrist_left[1]), tuple(np.multiply(wrist_left, [640,480]).astype(int)), cv.FONT_HERSHEY_SIMPLEX, 0.5,
+                      # (255,255,255))
         else:
             MET = 0
             pass
@@ -222,13 +222,7 @@ while True:
             break
 # Enregistrer le temps a la fin de la lecture video
 temps_fin = cv.getTickCount()
-# Caluler le temps ecoule en seconde.
 
-
-# Afficher le nombre de calories brulees dans la fenetre
-# Ceer un widget pour permettre a l'utilisateur d'entrer la valeur de la fequence cardiaque
-#print(temps_heure)
-# fenetre pour afficher l'estimation du nombre de calories brulees en kcal
 fenetre_calories = tk.Tk()
 fenetre_calories.title("Estimation des calories brulees")
 fenetre_calories.geometry("330x200")
@@ -247,8 +241,6 @@ def reset_training():
         pass
     # Reafficher la fenetre de choix
     fenetre.deiconify()
-#label_calories_var = tk.DoubleVar()
-
 
 detected_pulse = tk.BooleanVar()
 
@@ -271,18 +263,13 @@ def calories_brule(pouls, MET):
     #print(f"temps en seconde : {temps_seconde}")
     # Convertir le temps en heure
     temps_heure = (temps_seconde/3600)
-
     # Calculer le nombre de calories brulees
-    #MET = 14
     poids = 70
-    #pouls = update_pulse_label(max30, detected_pulse, pulse_label)
     calories = (MET * poids * temps_heure * 0.01 * pouls* 0.05* counter)
-    #label_calories_var.set(round(calories, 2))
     # Afficher les calories brulées dans une etiquette
     label_calories_affichage.config(text = "Calories brulées : {}".format(round(calories, 2)))
 
 last_pouls = 0
-
 # Initialiser le capteur MAX30100
 max30 = max30100.MAX30100()
 max30.enable_spo2()
@@ -302,15 +289,10 @@ bouton_valider = tk.Button(fenetre_calories, text = " OK", command = lambda poul
 label_instructions.pack()
 pulse_label.pack(pady=10)
 bouton_valider.pack()
-#frame_calories.pack()
 label_calories_affichage.pack()
-#bouton_ressaye.pack()
 
 
-# Appeler la fonction pour mettre a jour la valeur du pouls
-#last_pouls = 0
-#pouls = update_pulse_label(max30, detected_pulse, pulse_label, last_pouls)
-#print(pouls)
+
 # Fermer la fenetre
 
 cv.destroyAllWindows()
