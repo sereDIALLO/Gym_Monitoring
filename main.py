@@ -77,7 +77,7 @@ fenetre.geometry("500x400")
 # Création des boutons d'interface
 bouton_gauche = tk.Button(fenetre, text="Bras gauche", command=lambda: set_main_pref("gauche"))
 bouton_droit = tk.Button(fenetre, text="Bras droite", command=lambda: set_main_pref("droit"))
-bouton_deuxmains =  tk.Button(fenetre, text = "Deux bras", command =lambda: set_main_pref("deuxmains"))
+bouton_deuxmains =  tk.Button(fenetre, text = "Deux bras", command =lambda: set_main_pref("deuxbras"))
 bouton_annuler = tk.Button(fenetre, text = "Quitter", command=lambda: set_main_pref(None))
 
 # Pour rendre les boutons visibles sur l'interface
@@ -168,7 +168,7 @@ while True:
                 counter +=1
                 MET = 3
                 print(counter)
-                #Visualize angle
+                #Visualiser angle
                 cv.putText(frame, str(elbow_right[1]),
                     tuple(np.multiply(elbow_right, [640,480]).astype(int)),
                     cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255))
@@ -179,7 +179,7 @@ while True:
             
             #--------------------------------------------------Pour les deux bras----------------------------
             
-        elif main_pref == "deuxmains":
+        elif main_pref == "deuxbras":
             MET = 6
             angle_left = calculAngle(shoulder_left, elbow_left, wrist_left)
             angle_right = calculAngle(shoulder_right, elbow_right, wrist_right)
