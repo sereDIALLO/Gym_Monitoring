@@ -26,9 +26,9 @@ def detectionPose(img, pose, display = True):
         
         mp_drawing.draw_landmarks(image = img_out, landmark_list = resultat.pose_landmarks, connections = mp_pose.POSE_CONNECTIONS)
         for landmark in resultat.pose_landmarks.landmark:
-            #append landmark into the list
+            # ajouter les landmark dans la list
             landmarks.append((int(landmark.x * width), int(landmark.y*height), int(landmark.z * width)))
-    #check if the original input image and the result image are specified to be displayed
+    # Verifiez si l'image d'entrée et l'image de sortie sont spécifiées pour etre affichées.
     if display:
         plt.figure(figsize = (22,22))
         plt.subplot(121)
@@ -66,8 +66,6 @@ def on_closing():
     print("programme terminÃ©")
     raise SystemExit()
 
-
-
 # Definir la main de preference
 main_pref = "gauche"
 
@@ -96,9 +94,9 @@ if main_pref is None:
     print("Programme arreter")
     sys.exit()
     
-
-
+# variable counter qui stockera le nombre de fois l'utilisateur soulève l'haltère.
 counter = 0
+# 
 stage = None   
 #initializing mediapipe pose
 mp_pose = mp.solutions.pose
@@ -107,7 +105,7 @@ mp_drawing = mp.solutions.drawing_utils
 #setting up the pose function
 
 pose_video = mp_pose.Pose(static_image_mode = False, min_detection_confidence = 0.5, model_complexity = 1)
-# pour lancer le flux video 
+# pour lancer le flux video avec picamera2
 picam = Picamera2()
 picam.configure(picam.create_preview_configuration(main={"format": 'XRGB8888', "size": (640, 480)}))
 picam.start()
@@ -116,7 +114,6 @@ picam.start()
 temps_debut = cv.getTickCount()
 # Boucle principale
 while True:
-    # Capture video (remplacer avec votre code)
     frame = picam.capture_array()
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     #ret, frame = cap.read()
