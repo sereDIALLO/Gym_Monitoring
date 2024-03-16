@@ -96,14 +96,13 @@ if main_pref is None:
     
 # variable counter qui stockera le nombre de fois l'utilisateur soulève l'haltère.
 counter = 0
-# 
+# Suivre l'état de mouvement du bras
 stage = None   
-#initializing mediapipe pose
+#initialisation de mediapipe pose
 mp_pose = mp.solutions.pose
-#initializing mediapipe drawing
+#initialisation de mediapipe drawing
 mp_drawing = mp.solutions.drawing_utils
-#setting up the pose function
-
+# Mise en place de la fonction de pose
 pose_video = mp_pose.Pose(static_image_mode = False, min_detection_confidence = 0.5, model_complexity = 1)
 # pour lancer le flux video avec picamera2
 picam = Picamera2()
@@ -117,9 +116,9 @@ while True:
     frame = picam.capture_array()
     frame = cv.cvtColor(frame, cv.COLOR_BGR2RGB)
     #ret, frame = cap.read()
-    # Detecter les points cles 
+   
     frame, landmarks = detectionPose(frame, pose_video, display=False)
-
+    
     try:
         #landmarks for left arm
         frame, landmarks = detectionPose(frame, pose_video, display=False)
@@ -138,6 +137,7 @@ while True:
 
         # Calculer l'angle du bras et les repetitions
         #-------------------------------------------------pour le bras gauche------------------------------
+        
         if main_pref == "gauche":
             MET = 3
             angle = calculAngle(shoulder_left, elbow_left, wrist_left)
@@ -147,7 +147,7 @@ while True:
                 stage = "up"
                 counter +=1
                 print(counter)
-                #Visualize angle
+                #Visualiser angle
                 cv.putText(frame, str(elbow_left[1]),
                     tuple(np.multiply(elbow_left, [640,480]).astype(int)),
                     cv.FONT_HERSHEY_SIMPLEX, 0.5, (255,255,255))
@@ -156,7 +156,8 @@ while True:
                 cv.putText(frame, str(wrist_left[1]), tuple(np.multiply(wrist_left, [640,480]).astype(int)), cv.FONT_HERSHEY_SIMPLEX, 0.5,
                        (255,255,255))
             #print(landmarks)
-            #---------------------------------------------------pour le bras droite--------------------------
+            #---------------------------------------------------pour le bras droit--------------------------
+            
         elif main_pref == "droit":
             MET = 3
             angle = calculAngle(shoulder_right, elbow_right, wrist_right)
