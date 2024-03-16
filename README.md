@@ -6,4 +6,4 @@ Dans le contexte croissant de l'innovation technologique, les systèmes de visio
 ### Objectif:
 L'objectif de ce projet est de développer un système de suivi de position en temps réel en utilisant la bibliothèque MediaPipe développée par Google Research. Ce système aura pour but de faire une estimation du nombre de calories brûlées par une personne. Pour cela, un capteur de fréquence cardiaque sera utilisé pour mesurer la fréquence cardiaque de l'utilisateur.
 
-En combinant la puissance de la vision par ordinateur et des techniques d'apprentissage automatique, notre projet vise à fournir un outil polyvalent et précis pour suivre et analyser les mouvements du corps humain
+En combinant la puissance de la vision par ordinateur et des techniques d'apprentissage automatique, le projet vise à fournir un outil polyvalent et précis pour suivre et analyser les mouvements du corps humain
