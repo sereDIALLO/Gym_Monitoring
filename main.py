@@ -9,19 +9,20 @@ import max30100
 
 
 # -----------------------Definition des fonctions --------------------------------
+
 # Fonction pour la détection de pose
 def detectionPose(img, pose, display = True):
     img_out = img.copy()
     imgRGB = cv.cvtColor(img_out, cv.COLOR_BGR2RGB)
     
-    #Retrieve the height and width of the input image
+    #Recupérer height, width sur l'image d'entrée
     height, width,_ = img.shape
-    # perfom pose detection
+    # Effectuer la détection de pose
     resultat = pose.process(imgRGB)
     landmarks = []
-    # verify if any landmarks are detected
+    # verifier si des landmarks sont détectés
     if resultat.pose_landmarks:
-        #draw pose landmarks on the output image
+        #Dessiner les pose landmarks sur l'image de sortie
         
         mp_drawing.draw_landmarks(image = img_out, landmark_list = resultat.pose_landmarks, connections = mp_pose.POSE_CONNECTIONS)
         for landmark in resultat.pose_landmarks.landmark:
