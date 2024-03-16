@@ -7,8 +7,9 @@ from tkinter import messagebox
 import sys
 import max30100
 
+
 # -----------------------Definition des fonctions --------------------------------
-#function detection pos
+# Fonction pour la détection de pose
 def detectionPose(img, pose, display = True):
     img_out = img.copy()
     imgRGB = cv.cvtColor(img_out, cv.COLOR_BGR2RGB)
@@ -39,7 +40,7 @@ def detectionPose(img, pose, display = True):
         return img_out, landmarks
 
     
-# fonction calcul de l'angle
+# fonction pour calculer les angles
 
 def calculAngle(a,b,c):
     a = np.array(a)
@@ -74,7 +75,7 @@ fenetre = tk.Tk()
 fenetre.title("choix de l'option") 
 fenetre.geometry("500x400")
 
-#fenetre.protocol("WM_DELETE_WINDOW", on_closing)
+
 
 bouton_gauche = tk.Button(fenetre, text="Bras gauche", command=lambda: set_main_pref("gauche"))
 bouton_droit = tk.Button(fenetre, text="Bras droite", command=lambda: set_main_pref("droit"))
