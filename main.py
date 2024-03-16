@@ -75,22 +75,17 @@ fenetre = tk.Tk()
 fenetre.title("choix de l'option") 
 fenetre.geometry("500x400")
 
-
-
+# Création des boutons d'interface
 bouton_gauche = tk.Button(fenetre, text="Bras gauche", command=lambda: set_main_pref("gauche"))
 bouton_droit = tk.Button(fenetre, text="Bras droite", command=lambda: set_main_pref("droit"))
 bouton_deuxmains =  tk.Button(fenetre, text = "Deux bras", command =lambda: set_main_pref("deuxmains"))
 bouton_annuler = tk.Button(fenetre, text = "Quitter", command=lambda: set_main_pref(None))
 
-
-    
-
-# Ajouter les boutons a la fenetre
+# Pour rendre les boutons visibles sur l'interface
 bouton_gauche.pack()
 bouton_droit.pack()
 bouton_deuxmains.pack()
 bouton_annuler.pack()
-
 
 # Afficher la fenetre
 fenetre.mainloop()
