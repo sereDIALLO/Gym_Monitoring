@@ -1,12 +1,3 @@
-""""
-  Library for the Maxim MAX30100 pulse oximetry system on Raspberry Pi
-
-  Based on original C library for Arduino by Connor Huffine/Kontakt
-  https: // github.com / kontakt / MAX30100
-
-  September 2017
-"""
-
 import smbus
 
 INT_STATUS   = 0x00  # Which interrupts are tripped
