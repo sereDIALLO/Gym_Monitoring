@@ -109,7 +109,7 @@ def calories_brule(pouls, MET):
 
 
 # Definir la main de preference
-main_pref = "gauche"
+#main_pref = "gauche"
 
 # fenetre principale
 fenetre = tk.Tk()
