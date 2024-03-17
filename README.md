@@ -1,3 +1,4 @@
+<center>
 # GYM-MONITORING
 ![Logo Grafikart.fr](https://learnopencv.com/wp-content/uploads/2022/12/squats_landmarks_used_in_application_ai_fitness_trainer.png)
 ## PRESENTATION
@@ -14,3 +15,4 @@ En parallèle, un capteur de fréquence cardiaque **MAX30100** est utilisé pour
 Dans les jours à venir, je prévois de partager une vidéo explicative du projet, mettant en lumière son fonctionnement et ses détails.
 
 Merci à bientôt.
+</center>
