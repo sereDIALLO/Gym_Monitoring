@@ -1,6 +1,5 @@
-<center>
+
 # GYM-MONITORING
-</center>
 ![Logo Grafikart.fr](https://learnopencv.com/wp-content/uploads/2022/12/squats_landmarks_used_in_application_ai_fitness_trainer.png)
 ## PRESENTATION
 ### Contexte:
