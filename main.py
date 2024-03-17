@@ -10,7 +10,7 @@ import max30100
 
 # -----------------------Definition des fonctions --------------------------------
 
-# Fonction pour la détection de pose
+# Detection de pose
 def detectionPose(img, pose, display = True):
     img_out = img.copy()
     imgRGB = cv.cvtColor(img_out, cv.COLOR_BGR2RGB)
@@ -41,7 +41,7 @@ def detectionPose(img, pose, display = True):
         return img_out, landmarks
 
     
-# fonction pour calculer les angles
+# calcul des angles
 
 def calculAngle(a,b,c):
     a = np.array(a)
@@ -53,7 +53,7 @@ def calculAngle(a,b,c):
         angle = 360 - angle
     return angle
 
-# Fonction pour definir la main de preference
+# Definition de la main de preference
 def set_main_pref(main):
     global main_pref
     global main_pref_selected
@@ -61,15 +61,57 @@ def set_main_pref(main):
     main_pref_selected = False
     fenetre.destroy()  # Ferme la fenetre de dialogue apres avoir fait le choix
 
-# Fonction de fermeture
+# Arret du programmer
 def on_closing():
-    print("programme terminÃ©")
+    print("programme terminer")
     raise SystemExit()
+# renitialisation du programme
+def reset_training():
+    counter = 0
+    stage = None
+    main_pref = None
+    main_pref_selected = False
+    # fermer la fenetre de calories si elle est ouvertes
+    try :
+            
+        fenetre_calories.destroy()
+    except tk.TclError:
+        pass
+    # Reafficher la fenetre de choix
+    fenetre.deiconify()
+# Recuperation de la frequence cardique
+def update_pulse_label(max30, detected_pulse, pulse_label, last_value):
+    max30.read_sensor()
+    nb = int(max30.ir / 100)
+    if max30.ir != max30.buffer_ir:
+        if nb > 0:
+            pulse_label.config(text="Pulse : {}".format(nb))
+            detected_pulse.set(True)
+            last_value = nb
+            
+    if not detected_pulse.get():
+        fenetre_calories.after(2000, update_pulse_label, max30, detected_pulse, pulse_label, last_value)  # Appeler cette fonction apres 2 secondes
+    return last_value
+
+# Estimation du nombre de calories brulees.
+def calories_brule(pouls, MET):
+    # MET : L'equivalent metabolique (Metabolic Equivalent of Task)
+    temps_seconde = int( (temps_fin - temps_debut) /cv.getTickFrequency() )
+    #print(f"temps en seconde : {temps_seconde}")
+    # Convertir le temps en heure
+    temps_heure = (temps_seconde/3600)
+    # Calculer le nombre de calories brulees
+    poids = 70
+    calories = (MET * poids * temps_heure * 0.01 * pouls* 0.05* counter)
+    # Afficher les calories brulées dans une etiquette
+    label_calories_affichage.config(text = "Calories brulées : {}".format(round(calories, 2)))
+
+
 
 # Definir la main de preference
 main_pref = "gauche"
 
-# Interface graphique
+# fenetre principale
 fenetre = tk.Tk()
 fenetre.title("choix de l'option") 
 fenetre.geometry("500x400")
@@ -222,52 +264,13 @@ while True:
             break
 # Enregistrer le temps a la fin de la lecture video
 temps_fin = cv.getTickCount()
-
+# Interface pour l'estimation des calories burlees.
 fenetre_calories = tk.Tk()
 fenetre_calories.title("Estimation des calories brulees")
 fenetre_calories.geometry("330x200")
 fenetre_calories.configure(bg="#DCDCDC")
-# pour pour renitialiser
-def reset_training():
-    counter = 0
-    stage = None
-    main_pref = None
-    main_pref_selected = False
-    # fermer la fenetre de calories si elle est ouvertes
-    try :
-            
-        fenetre_calories.destroy()
-    except tk.TclError:
-        pass
-    # Reafficher la fenetre de choix
-    fenetre.deiconify()
 
 detected_pulse = tk.BooleanVar()
-
-# Fonction pour mettre a jour la valeur du pouls dans le label
-def update_pulse_label(max30, detected_pulse, pulse_label, last_value):
-    max30.read_sensor()
-    nb = int(max30.ir / 100)
-    if max30.ir != max30.buffer_ir:
-        if nb > 0:
-            pulse_label.config(text="Pulse : {}".format(nb))
-            detected_pulse.set(True)
-            last_value = nb
-            
-    if not detected_pulse.get():
-        fenetre_calories.after(2000, update_pulse_label, max30, detected_pulse, pulse_label, last_value)  # Appeler cette fonction apres 2 secondes
-    return last_value
-    
-def calories_brule(pouls, MET):
-    temps_seconde = int( (temps_fin - temps_debut) /cv.getTickFrequency() )
-    #print(f"temps en seconde : {temps_seconde}")
-    # Convertir le temps en heure
-    temps_heure = (temps_seconde/3600)
-    # Calculer le nombre de calories brulees
-    poids = 70
-    calories = (MET * poids * temps_heure * 0.01 * pouls* 0.05* counter)
-    # Afficher les calories brulées dans une etiquette
-    label_calories_affichage.config(text = "Calories brulées : {}".format(round(calories, 2)))
 
 last_pouls = 0
 # Initialiser le capteur MAX30100
@@ -293,7 +296,7 @@ label_calories_affichage.pack()
 
 
 
-# Fermer la fenetre
+# Fermer toutes les fenetres
 
 cv.destroyAllWindows()
 fenetre_calories.mainloop()
